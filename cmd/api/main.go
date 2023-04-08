@@ -8,6 +8,7 @@ import (
 	"gorm.io/gorm"
 	"log"
 	"net/http"
+	"os"
 	"youtube-clone/pkg/repository/gormadp/dbmodels"
 )
 
@@ -40,8 +41,14 @@ func main() {
 
 	linkV1Routes(r, v1Handlers)
 
+	PORT := "3000"
+
+	if p, ok := os.LookupEnv("PORT"); ok {
+		PORT = p
+	}
+
 	log.Println("api started successfully on '3000' port")
-	if err = http.ListenAndServe(":3000", r); err != nil {
+	if err = http.ListenAndServe(fmt.Sprintf(":%s", PORT), r); err != nil {
 		log.Fatalln(err)
 	}
 }
