@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/go-chi/chi/v5"
 	"gorm.io/gorm"
+	"net/http"
 	"youtube-clone/cmd/api/handler/middleware"
 	loginhnd "youtube-clone/cmd/api/handler/v1/login"
 	userhnd "youtube-clone/cmd/api/handler/v1/user"
@@ -62,6 +63,11 @@ func registerV1Handlers(dbConn *gorm.DB) (*V1Handlers, error) {
 }
 
 func linkV1Routes(r *chi.Mux, h *V1Handlers) {
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("YouTube Clone API is running!"))
+	})
+
 	// Login
 	r.Post("/api/v1/auth/login", h.login.Login)
 

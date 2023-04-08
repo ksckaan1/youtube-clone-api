@@ -47,7 +47,7 @@ func main() {
 		PORT = p
 	}
 
-	log.Println("api started successfully on '3000' port")
+	log.Printf("api started successfully on '%s' port\n", PORT)
 	if err = http.ListenAndServe(fmt.Sprintf(":%s", PORT), r); err != nil {
 		log.Fatalln(err)
 	}
